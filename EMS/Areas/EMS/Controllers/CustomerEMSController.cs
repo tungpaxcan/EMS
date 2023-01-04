@@ -49,6 +49,37 @@ namespace EMS.Areas.EMS.Controllers
             }
         }
         [HttpPost]
+        public JsonResult Deletes(string id)
+        {
+            try
+            {
+                var customer = db.Customers.SingleOrDefault(x => x.Id == id);
+                var attendEventCount = db.AttendEvents.Where(x => x.IdCustomer == id);
+                var personVotedCount = db.PersonVoteds.Where(x => x.IdCustomer == id);
+                for(int i = 0; i < attendEventCount.Count(); i++)
+                {
+                    var idAttendEvent = attendEventCount.ToList().LastOrDefault().Id;
+                    var attendEvent = db.AttendEvents.SingleOrDefault(x => x.Id == idAttendEvent);
+                    db.AttendEvents.Remove(attendEvent);
+                    db.SaveChanges();
+                }
+                for (int i = 0; i < personVotedCount.Count(); i++)
+                {
+                    var idPersonVoted = personVotedCount.ToList().LastOrDefault().Id;
+                    var personVoted = db.PersonVoteds.SingleOrDefault(x => x.Id == idPersonVoted);
+                    db.PersonVoteds.Remove(personVoted);
+                    db.SaveChanges();
+                }
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+                return Json(new { code = 200,  msg = "Đăng nhập thất bại" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { code = 500, msg = "Đăng nhập thất bại" + e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
         public JsonResult Adds(string name, int phone , string email,int idTypeCustomer)
         {
             try

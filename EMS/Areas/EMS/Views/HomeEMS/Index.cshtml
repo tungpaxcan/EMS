@@ -3,6 +3,56 @@
     ViewBag.Title = "Trang Chủ";
     Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-6" style="height: 500px; background-image: url(https://vinhnguyen.vn/vinhnguyen.vn/images/bai_viet/33/2021/10/26/ma-vach-qr-la-gi-huong-dan-cach-quet-va-tao-ra-ma-vach-qr_2021_10_26_0.jpeg); background-repeat: no-repeat">
 
-<h2>Index</h2>
+    </div>
+    <div class="col-6" style="transform: translateY(50%);">
+        <input class="form-control" type="text" placeholder="Quét Mã Qr Khách" id="id" />
+        <div id="QR" ></div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function wait(ms) {
+            return new Promise(r => setTimeout(r,ms))
+        }
+        $(document).scannerDetection({
+            timeBeforeScanTest: 200, // wait for the next character for upto 200ms
+            startChar: [120],
+            endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
+            avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
+            ignoreIfFocusOn: 'input', // turn off scanner detection if an input has focus
+            minLength: 1,
+            onComplete:  function (barcode, qty) {
+                Add(barcode)
+            }, // main callback function
+            scanButtonKeyCode: 116, // the hardware scan button acts as key 116 (F5)
+            scanButtonLongPressThreshold: 5, // assume a long press if 5 or more events come in sequence
+            onError: function (string) { alert('Error ' + string); }
+        });
+
+        function Add(id) {
+            $.ajax({
+                url: '/AttendEventEMS/Adds',
+                type: 'post',
+                data: {
+                    id
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        $('#id').val('')
+                        alert("Nhận Khách")
+                    } else if (data.code == 100) {
+                        $('#id').val('')
+                        alert("Khách Đã CheckIn")
+                    } else {
+                        $('#id').val('')
+                       alert("Khách Không có Trong Danh Sách")
+                    }
+                }
+            })
+        }
+    </script>
+    }
 

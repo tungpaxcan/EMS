@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Danh Sách Phiếu";
+    Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <div class="col-3">Chọn Phiếu : </div>
+    <div class="col-9"><select class="form-select" aria-label="Default select example" id="voteNews">
+</select></div>
+</div>
+
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Stt</th>
+            <th scope="col">Tên Người Được Bình Chọn</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody id="tbd">
+    </tbody>
+</table>
+<br />
+<div class="row">
+    <div class="col-3"> Trạng Thái : </div>
+    <div class="col-9">
+        <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off">
+        <label class="btn btn-outline-success" for="success-outlined">Hiển Thị Với Người Dùng</label>
+
+        <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+        <label class="btn btn-outline-danger" for="danger-outlined">Ẩn Với Người Dùng</label>
+    </div>
+</div>
+<br />
+<button type="button" class="btn btn-danger" onclick=" Delete()">Xóa Phiếu Bình Chọn Này</button>
+@section scripts{
+    <script>
+        $.ajax({
+            url: '/VoteNews/List',
+            type: 'get',
+            success: function (data) {
+                $('#voteNews').empty()
+                if (data.code == 200) {
+                    let opt = `<option value="0">Trống</option>`
+                    $.each(data.voteNews, function (k, v) {
+                        opt += `<option value="${v.id}">${v.name}</option>`
+                    })
+                    $('#voteNews').append(opt)
+                } else {
+
+                }
+            }
+        })
+
+        $(document).on('change', '#voteNews',function () {
+            var idVotenews = $('#voteNews option:selected').val()
+            PersonVoted(idVotenews)          
+        })
+
+        function PersonVoted(idVotenews) {
+            $.ajax({
+                url: '/PersonVotedEMS/List',
+                type: 'get',
+                data: {
+                    idVotenews
+                },
+                success: function (data) {
+                    $('#tbd').empty()
+                    if (data.code == 200) {
+                        $.each(data.personVoted, function (k, v) {
+                            let tbd = `<tr id="${v.id}">
+                                            <td>${k + 1}</td>
+                                            <td>${v.name}</td>
+                                            <td>${v.email}</td>
+                                            <td name="delete" class="text-danger" style="cursor: pointer;">Xóa</td>
+                                        </tr>`
+                            $('#tbd').append(tbd)
+                        })
+                        if (data.voteNews == true) {
+                            $('#success-outlined').attr('checked', true)
+                        } else {
+                            $('#danger-outlined').attr('checked', true)
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        }
+
+        $(document).on('change', 'input[name="options-outlined"]', function () {
+            var idVotenews = $('#voteNews option:selected').val()
+            var check = $('input[name="options-outlined"]')
+            var status ='';
+            for (let i = 0; i < check.length; i++) {
+                if (check[i].checked) {
+                     status = check[i].id
+                }
+            }
+            $.ajax({
+                url: '/VoteNews/Edits',
+                type: 'post',
+                data: {
+                    status, idVotenews
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                    } else {
+                    }
+                }
+            })
+        })
+
+        function Delete() {
+            var idVotenews = $('#voteNews option:selected').val()
+            if (confirm("Bạn Có Chắc Chắn Xóa")) {
+                $.ajax({
+                    url: '/VoteNews/Deletes',
+                    type: 'post',
+                    data: {
+                        idVotenews
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            window.location.href = "/EMS/VoteNews/Index"
+                        } else {
+                        }
+                    }
+                })
+            }
+        }
+
+        $(document).on('click', 'td[name="delete"]', function () {
+            var id = $(this).closest('tr').attr('id')
+            var idVotenews = $('#voteNews option:selected').val()
+            if (confirm("Bạn Có Chắc Chắn Xóa")) {
+                $.ajax({
+                    url: '/PersonVotedEMS/Deletes',
+                    type: 'post',
+                    data: {
+                        id
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            PersonVoted(idVotenews)
+                        } else {
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+    }

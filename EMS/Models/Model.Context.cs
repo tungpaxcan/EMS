@@ -26,7 +26,12 @@ namespace EMS.Models
         }
     
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<AttendEvent> AttendEvents { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<EmailAdmin> EmailAdmins { get; set; }
+        public DbSet<Module> Modules { get; set; }
+        public DbSet<PersonVoted> PersonVoteds { get; set; }
         public DbSet<TypeCustomer> TypeCustomers { get; set; }
+        public DbSet<VoteNew> VoteNews { get; set; }
     }
 }
