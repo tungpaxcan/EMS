@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Danh Sách Khách Hàng";
+    Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="row">
+    <div class="col-3">Tìm Kiếm : </div>
+    <div class="col-9"><input class="form-control" type="text" id="seach" placeholder="Nhập tìm kiếm"/></div>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Stt</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Số Điện Thoại</th>
+            <th scope="col">Email</th>
+            <th scope="col">Loại KH</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody id="tbd">
+        
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        var seach = '';
+        List(seach)
+
+        $('#seach').keyup(function () {
+            var seach = $('#seach').val().trim();
+            List(seach)
+        })
+
+        function List(seach) {
+            $.ajax({
+                url: '/CustomerEMS/List',
+                type: 'get',
+                data: {
+                    seach
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        $('#tbd').empty()
+                        $.each(data.customer, function (k, v) {
+                            let tbd = `<tr id="${v.id}">
+                                            <td>${k+1}</td>
+                                            <td>${v.name}</td>
+                                            <td>${v.phone}</td>
+                                            <td>${v.email}</td>
+                                            <td>${v.idTypeCustomer}</td>
+                                        </tr>`
+                            $('#tbd').append(tbd)
+                        })
+                    } else {
+                        alert("Lỗi Hiển Thị !!!")
+                    }
+                }
+            })
+        }
+    </script>
+    }
