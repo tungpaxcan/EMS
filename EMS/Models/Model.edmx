@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="EMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Id" />
@@ -218,7 +218,8 @@
             <End Role="Votes" EntitySet="Votes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -312,7 +313,7 @@
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_PersonVoted_Customer" FromRole="PersonVoted" ToRole="Customer" />
           <NavigationProperty Name="VoteNew" Relationship="Self.FK_PersonVoted_VoteNews" FromRole="PersonVoted" ToRole="VoteNews" />
-          <NavigationProperty Name="Votes" Relationship="EMSModel.FK_Votes_PersonVoted" FromRole="PersonVoted" ToRole="Vote" />
+          <NavigationProperty Name="Votes" Relationship="Self.FK_Votes_PersonVoted" FromRole="PersonVoted" ToRole="Votes" />
         </EntityType>
         <EntityType Name="TypeCustomer">
           <Key>
@@ -339,6 +340,20 @@
           <Property Name="ModifyBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="PersonVoteds" Relationship="Self.FK_PersonVoted_VoteNews" FromRole="VoteNews" ToRole="PersonVoted" />
+        </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPersonVoted" Type="Int32" />
+          <Property Name="Vote1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="PersonVoted" Relationship="Self.FK_Votes_PersonVoted" FromRole="Votes" ToRole="PersonVoted" />
         </EntityType>
         <Association Name="FK_AttendEvent_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
@@ -388,6 +403,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Votes_PersonVoted">
+          <End Role="PersonVoted" Type="Self.PersonVoted" Multiplicity="0..1" />
+          <End Role="Votes" Type="Self.Vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonVoted">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votes">
+              <PropertyRef Name="IdPersonVoted" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="EMSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
           <EntitySet Name="AttendEvents" EntityType="Self.AttendEvent" />
@@ -397,6 +424,7 @@
           <EntitySet Name="PersonVoteds" EntityType="Self.PersonVoted" />
           <EntitySet Name="TypeCustomers" EntityType="Self.TypeCustomer" />
           <EntitySet Name="VoteNews" EntityType="Self.VoteNew" />
+          <EntitySet Name="Votes" EntityType="Self.Vote" />
           <AssociationSet Name="FK_AttendEvent_Customer" Association="Self.FK_AttendEvent_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="AttendEvent" EntitySet="AttendEvents" />
@@ -413,38 +441,11 @@
             <End Role="VoteNews" EntitySet="VoteNews" />
             <End Role="PersonVoted" EntitySet="PersonVoteds" />
           </AssociationSet>
-          <EntitySet Name="Votes" EntityType="EMSModel.Vote" />
-          <AssociationSet Name="FK_Votes_PersonVoted" Association="EMSModel.FK_Votes_PersonVoted">
+          <AssociationSet Name="FK_Votes_PersonVoted" Association="Self.FK_Votes_PersonVoted">
             <End Role="PersonVoted" EntitySet="PersonVoteds" />
-            <End Role="Vote" EntitySet="Votes" />
+            <End Role="Votes" EntitySet="Votes" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Vote">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdPersonVoted" Type="Int32" />
-          <Property Name="Vote1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifyBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="PersonVoted" Relationship="EMSModel.FK_Votes_PersonVoted" FromRole="Vote" ToRole="PersonVoted" />
-        </EntityType>
-        <Association Name="FK_Votes_PersonVoted">
-          <End Type="EMSModel.PersonVoted" Role="PersonVoted" Multiplicity="0..1" />
-          <End Type="EMSModel.Vote" Role="Vote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonVoted">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Vote">
-              <PropertyRef Name="IdPersonVoted" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -571,14 +572,14 @@
           <EntitySetMapping Name="Votes">
             <EntityTypeMapping TypeName="EMSModel.Vote">
               <MappingFragment StoreEntitySet="Votes">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Vote1" ColumnName="Vote" />
-                <ScalarProperty Name="IdPersonVoted" ColumnName="IdPersonVoted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdPersonVoted" ColumnName="IdPersonVoted" />
+                <ScalarProperty Name="Vote1" ColumnName="Vote" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

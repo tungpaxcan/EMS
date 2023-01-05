@@ -41,15 +41,15 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                            Tạo Bình Chọn
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Tạo Bình Chọn
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/EMS/VoteNews/Add">Tạo Mới</a></li>
                             <li><a class="dropdown-item" href="/EMS/VoteNews/Index">Danh Sách Phiếu</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="/EMS/VotesEMS/Index">Người Chiến Thắng Bình Chọn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -63,10 +63,6 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
     <script>
 

@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewBag.Title = "Người Chiến Thắng Bình Chọn";
+    Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body{
+        background-color:black
+    }
+    body {
+        margin: 0;
+        font: 300 18px/18px Teko, sans-serif;
+    }
+
+    *,
+    :after,
+    :before {
+        box-sizing: border-box;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .d-none {
+        display: none;
+    }
+
+    .clearfix:after,
+    .clearfix:before {
+        content: "";
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+        display: block;
+    }
+
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+        .animated.infinite {
+            animation-iteration-count: infinite;
+        }
+
+        .animated.delay-1s {
+            animation-delay: 1s;
+        }
+
+        .animated.delay-2s {
+            animation-delay: 2s;
+        }
+
+        .animated.delay-3s {
+            animation-delay: 3s;
+        }
+
+        .animated.delay-4s {
+            animation-delay: 4s;
+        }
+
+        .animated.delay-5s {
+            animation-delay: 5s;
+        }
+    .bounce {
+        animation-name: bounce;
+        transform-origin: center bottom;
+    }
+    .flash {
+        animation-name: flash;
+    }
+    .pulse {
+        animation-name: pulse;
+    }
+    .rubberBand {
+        animation-name: rubberBand;
+    }
+    .shake {
+        animation-name: shake;
+    }
+    .headShake {
+        animation-timing-function: ease-in-out;
+        animation-name: headShake;
+    }
+    .swing {
+        transform-origin: top center;
+        animation-name: swing;
+    }
+    .tada {
+        animation-name: tada;
+    }
+    .btn {
+        margin: 0 auto;
+        margin-top: 10%;
+        display: block;
+        width: 50px;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+        text-decoration: none;
+        padding: 4px 8px;
+        text-transform: uppercase;
+        color: white;
+        border-radius: 1px;
+    }
+</style>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<br />
+<select class="form-select" aria-label="Default select example" id="voteNews">
+</select>
+<br />
+    <a class="btn btn-gold" href="javascript:void(0)">Mở</a>
+    <div class="congrats">
+        <div class="el ang-a animated d-none" data-in="zoomOut"></div>
+        <div class="el ang-b animated d-none" data-in="zoomOut"></div>
+        <div class="el glow animated d-none" data-in="fadeIn"></div>
+        <div class="el bg bg-1 animated d-none" data-in="fadeIn" data-out="zoomOut"></div>
+        <div class="el dots animated d-none"> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i> <i></i></div>
+        <div class="el bg bg-2 animated d-none" data-in="zoomIn" data-out="bounceOut"></div>
+        <div class="el ang-c animated d-none" data-in="zoomOut"></div>
+        <div class="el shine animated d-none" data-in="shineIn" data-out="fadeOut"></div>
+        <div class="el text animated d-none" data-in="zoomOutIn" data-out="zoomOutLeft" id="youwin"></div>
+    </div>
+@section scripts{
+    <script>
+        $.ajax({
+            url: '/VoteNews/List',
+            type: 'get',
+            success: function (data) {
+                $('#voteNews').empty()
+                if (data.code == 200) {
+                    let opt = `<option value="0">Chọn Phiếu Bình Chọn</option>`
+                    $.each(data.voteNews, function (k, v) {
+                        opt += `<option value="${v.id}">${v.name}</option>`
+                    })
+                    $('#voteNews').append(opt)
+                } else {
+
+                }
+            }
+        })
+
+        $(function () {
+            var btn = $('.btn'), bg_1 = $('.bg-1'), bg_2 = $('.bg-2'), ang_a = $('.ang-a'), ang_b = $('.ang-b'), ang_c = $('.ang-c'), text = $('.text'), glow = $('.glow'), dots = $('.dots'), shine = $('.shine');
+            var start = function () {
+                ang_a.removeClass('d-none').removeClass(ang_a.data('in')).addClass(ang_a.data('in'));
+                ang_b.removeClass('d-none').removeClass(ang_b.data('in')).addClass(ang_b.data('in'));
+                ang_c.removeClass('d-none').removeClass(ang_c.data('in')).addClass(ang_c.data('in'));
+                bg_2.removeClass('d-none').removeClass(bg_2.data('out')).addClass(bg_2.data('in'));
+                setTimeout(function () {
+                    bg_1.removeClass('d-none').removeClass(bg_1.data('out')).addClass(bg_1.data('in'));
+                }, 500);
+                btn.fadeOut(200);
+            }
+            btn.on('click', start);
+            bg_2.off().on('animationend webkitAnimationEnd oAnimationEnd mozAnimationEnd', function () {
+                setTimeout(function () {
+                    bg_2.fadeOut('fast').addClass('d-none').removeClass(bg_2.data('in'));
+                    text.removeClass('d-none').addClass(text.data('in'));
+                }, 600);
+            });
+            text.off().on('animationend webkitAnimationEnd oAnimationEnd mozAnimationEnd', function () {
+                setTimeout(function () {
+                    text.addClass('txt-ind');
+                    glow.removeClass('d-none').addClass(glow.data('in'));
+                    dots.removeClass('d-none');
+                    shine.removeClass('d-none').addClass(shine.data('in'));
+                }, 50);
+
+            });
+            glow.off().on('animationend webkitAnimationEnd oAnimationEnd mozAnimationEnd', function () {
+                bg_2.removeAttr('style').removeClass('d-none').addClass(bg_2.data('out'));
+            });
+            shine.off().on('animationend webkitAnimationEnd oAnimationEnd mozAnimationEnd', function () {
+                setTimeout(function () {
+                    dots.fadeOut(300);
+                    glow.fadeOut(500);
+                }, 1000);
+                setTimeout(function () {
+                    shine.fadeOut(400);
+                    bg_1.removeClass(bg_1.data('in')).addClass(bg_1.data('out'));
+                }, 100000);
+                setTimeout(function () {
+                    text.removeClass(text.data('in')).addClass(text.data('out'));
+                    setTimeout(function () {
+                        $(document).trigger('animate:reset');
+                    }, 500);
+                }, 100000);
+            });
+
+            $(document).on('animate:reset', function () {
+                $('.el').each(function () {
+                    $(this).addClass('d-none').removeClass($(this).data('in')).removeClass($(this).data('out')).removeAttr('style');
+                });
+                text.removeClass('txt-ind');
+                btn.fadeIn(200);
+            });
+        });
+
+        $(document).on('change', '#voteNews', function () {
+            var voteNews = $('#voteNews option:selected').val();
+            var arr = []
+            $.ajax({
+                url: '/VotesEMS/Win',
+                type: 'get',
+                data: {
+                    voteNews
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        $.each(data.winVoted, function (k, v) {
+                            arr.push(v.id)
+                        })
+                        array_unique(arr)
+                    } else {
+
+                    }
+                }
+            })
+        })
+
+        function array_unique(array) {
+            var arr1 = array
+            var mf = 1;
+            var m = 0;
+            var item;
+            for (var i = 0; i < arr1.length; i++) {
+                for (var j = i; j < arr1.length; j++) {
+                    if (arr1[i] == arr1[j])
+                        m++;
+                    if (mf < m) {
+                        mf = m;
+                        item = arr1[i];
+                    }
+                }
+                m = 0;
+            }
+            $.ajax({
+                url: '/VotesEMS/WinName',
+                type: 'get',
+                data: {
+                    item
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        $('#youwin').empty()
+                        let div = `${data.personVoted}`
+                            $('#youwin').append(div)                      
+                    } else {
+
+                    }
+                }
+            })
+        }
+    </script>
+}
