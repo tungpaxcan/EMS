@@ -14,7 +14,7 @@ using OfficeOpenXml;
 namespace EMS.Areas.EMS.Controllers
 {
     public class CustomerEMSController : BaseController
-    {
+    {   
         private EMSEntities db = new EMSEntities();
         // GET: EMS/CustomerEMS
         public ActionResult Index()
@@ -104,7 +104,8 @@ namespace EMS.Areas.EMS.Controllers
                 customer.Status = true;
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                EmailExtension.SendNotificationEmail(customer);
+                string prefix = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority);
+                EmailExtension.SendNotificationEmail(customer,prefix);
                 return Json(new { code = 200, msg = "Đăng nhập thất bại" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -176,7 +177,8 @@ namespace EMS.Areas.EMS.Controllers
                                 customer.Status = true;
                                 db.Customers.Add(customer);
                                 db.SaveChanges();
-                                EmailExtension.SendNotificationEmail(customer);
+                                string prefix = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority);
+                                EmailExtension.SendNotificationEmail(customer, prefix);
                             }
                             else
                             {

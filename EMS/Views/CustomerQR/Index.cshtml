@@ -13,45 +13,34 @@
 <body>
     <div style=" display: flex; justify-content: center;">
         <img src="https://www.haphan.com/images/logo.jpg" />
-
+       
         <button id="Accept" type="button">THAM DỰ SỰ KIỆN</button>
     </div>
-
+    <div hidden id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../../Scripts/QR.js"></script>
     <script type="text/javascript">
     var CusID = null
+
     if (@Html.Raw(Json.Encode(@ViewBag.CusID)) != null) {
 
         CusID = @Html.Raw(Json.Encode(@ViewBag.CusID));
-
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 100,
+            height: 100
+        });
+        qrcode.makeCode(CusID)
     }
         $('#Accept').click(function () {
-
-            let content = CusID
-
-            var svg
-
-            try {
-                var qrcode = new QRCodeSVG({
-                    content,
-                    
-                    join: true,
-                    width: 500,
-                    height: 500
-                });
-                 svg = qrcode.svg();
-                
-            } catch (error) {
-                alert(error)
-            }
-        
+           
+            let src = $('#qrcode > img').attr("src")
+            
             $.ajax({
                 url: '/CustomerQR/SendQR',
                 type: 'POST',
                 data: {
                     ID: CusID,
-                    SVG :svg+""
+                    SRC: src
                 },
                 success: function (data) {
 
