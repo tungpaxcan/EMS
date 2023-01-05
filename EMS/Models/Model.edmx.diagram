@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="EMSModel.Customer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="EMSModel.TypeCustomer" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <AssociationConnector Association="EMSModel.FK_Customer_TypeCustomer" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EMSModel.EmailAdmin" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EMSModel.Module" Width="1.5" PointX="8.875" PointY="2.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

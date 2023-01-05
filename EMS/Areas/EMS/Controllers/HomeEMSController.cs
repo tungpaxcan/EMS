@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EMS.Areas.EMS.Extension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace EMS.Areas.EMS.Controllers
         // GET: EMS/HomeEMS
         public ActionResult Index()
         {
+            EmailExtension.SendNotificationEmail("hoanghgggg@gmail.com");
             return View();
+           
         }
     }
 }
