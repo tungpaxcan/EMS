@@ -167,6 +167,7 @@
     <Compile Include="Areas\EMS\Controllers\PersonVotedEMSController.cs" />
     <Compile Include="Areas\EMS\Controllers\TypeCustomerEMSController.cs" />
     <Compile Include="Areas\EMS\Controllers\VoteNewsController.cs" />
+    <Compile Include="Areas\EMS\Controllers\VotesEMSController.cs" />
     <Compile Include="Areas\EMS\EMSAreaRegistration.cs" />
     <Compile Include="Areas\EMS\Extension\EmailExtension.cs" />
     <Compile Include="Controllers\BaseHomeController.cs" />
@@ -261,6 +262,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\EMS\Views\VotesEMS\Index.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
