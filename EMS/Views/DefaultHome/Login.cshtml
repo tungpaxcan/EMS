@@ -1,0 +1,173 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="manifest" href="https://scanapp.org/assets/manifest.json" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=hE422l856DXg8CY59UvmLDc-V2GhNMFtFoLCW89uHhBgypldgE59ewZhrCFL6C9l" charset="UTF-8"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KZEP7DPYH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-2KZEP7DPYH');
+    </script>
+
+    <link rel="stylesheet" href=https://scanapp.org/assets/main.css>
+
+    <link rel="canonical" href="https://scanapp.org" />
+    <link rel="stylesheet" href="https://scanapp.org/assets/app.v2.2.8.2.css">
+    <base target="_parent">
+
+    <link rel="canonical" href="https://scanapp.org" />
+</head>
+<body data-instant-allow-query-string data-instant-allow-external-links>
+    <div>
+        <link rel="stylesheet" href="https://scanapp.org/assets/css/index.v2.2.8.1.css">
+        <div id="scanapp-top-container">
+            <div id="scanapp-container">
+                <div id="scanner">
+                    <div id="logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 27 27"><path d="M1 1h7v7h-7zM12 1h3v1h2v-1h1v2h-1v2h-1v-2h-2v1h1v2h2v1h-1v1h-1v-1h-1v-1h-1v-4h-1zM19 1h7v7h-7zM2 2v5h5v-5zM11 2h1v3h-1v1h-1v3h-1v-6h1v1h1zM20 2v5h5v-5zM3 3h3v3h-3zM21 3h3v3h-3zM17 5h1v1h-1zM11 7h1v1h-1zM13 7h1v2h-1zM17 7h1v1h-1zM16 8h1v1h-1zM1 9h1v1h-1zM3 9h5v1h-1v1h-1v-1h-2v1h1v1h-1v1h-2v5h-1v-6h1v-1h1zM10 9h1v2h-1v1h1v1h-1v1h-1v-1h-1v-1h-1v-1h1v-1h2zM12 9h1v1h1v1h1v1h-1v1h1v-1h1v-1h1v2h1v-2h-1v-1h2v1h1v-1h-1v-1h5v1h-3v1h2v1h-2v1h1v1h-1v1h1v-1h1v2h-1v2h1v1h-1v1h1v1h-1v1h1v-1h1v-1h-1v-1h3v1h-1v1h1v5h-6v-2h2v-1h-1v-1h-1v1h-1v-1h-2v1h1v1h1v1h-4v-1h-2v1h1v1h-2v-1h-1v-1h-2v-4h1v2h2v1h2v-1h-1v-2h1v1h1v2h1v-2h1v-2h-1v-1h-1v1h-2v-1h1v-1h1v-1h-2v2h-1v-1h-1v-2h3v-1h-2v-2h1v-1h-1zM14 9h2v1h-2zM24 10h1v1h1v3h-1v1h1v2h-1v-1h-1v-2h-1v-1h2v-1h-1zM11 11h1v1h-1zM19 12v1h1v-1zM4 13h1v2h3v1h-2v1h-1v-1h-1v-1h-1v-1h1zM6 13h2v1h-2zM10 14h1v1h-1zM15 14v1h2v-1zM19 14v1h1v-1zM9 16h1v2h1v1h-2zM17 16v1h1v-1zM19 16v1h1v-1zM4 17h1v1h-1zM6 17h2v1h-2zM23 17h1v1h-1zM18 18v3h3v-3zM1 19h7v7h-7zM11 19h1v1h-1zM15 19h1v2h-1zM19 19h1v1h-1zM2 20v5h5v-5zM3 21h3v3h-3zM24 23v1h-1v1h2v-2zM9 25h1v1h-1z" /></svg>
+                    </div>
+                    <div id="reader-top-container" style="position: relative;">
+                        <div id="reader-container">
+                            <div id="reader"></div>
+                        </div>
+                    </div>
+                    <div class="empty"></div>
+                </div>
+                <div id="workspace">
+                    <div id="result">
+                        <div class="workspace-header" id="qr-result-viewer-header"></div>
+                        <div id="new-scanned-result" class="pop-up-banner">
+                            <div class="header">
+                                New <span id="scan-result-code-type">{code}</span> detected!
+                            </div>
+                            <div class="section">
+                                <div class="image" id="scan-result-image"></div>
+                                <div class="data">
+                                    <table id="result_table">
+                                        <tr>
+                                            <!-- <td>Parsed</td> -->
+                                            <td colspan="2">
+                                                <div>
+                                                    <div class="badge">
+                                                        <div class="badge-icon">
+                                                            <span><b>Type</b></span>
+                                                        </div>
+                                                        <div class="badge-text">
+                                                            <span id="scan-result-badge-body">{type}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scan-result-parsed">{parsed result here}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Actions</td>
+                                            <td>
+                                                <img class="action_image" id="action-share"
+                                                     src="./assets/svg/share-svgrepo-com.svg">
+                                                <img class="action_image" id="action-copy"
+                                                     src="./assets/svg/copy-svgrepo-com.svg">
+                                                <img class="action_image" id="action-payment"
+                                                     src="./assets/svg/coin-svgrepo-com.svg" style="display: none">
+                                                <img class="action_image" id="action-url"
+                                                     src="./assets/svg/link2.svg" style="display: none;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Text</td>
+                                            <td style="word-break: break-word">
+                                                <div id="scan-result-text">{text result here}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="body-footer" class="footer">
+                                <button id="scan-result-close" class="scanapp-button">
+                                    Close and scan another
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Change to display: flex-->
+                    </div>
+                    <div id="history">
+                        <div class="workspace-header">Scan History</div>
+                        <div id="no-result-container">No scans in history</div>
+                        <div id="history-list"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                Scanning done locally on your device.
+                <br>
+                Built with &hearts; using <a href="https://github.com/mebjas/html5-qrcode">mebjas/html5-qrcode</a>
+                <div class="empty"></div>
+                <a href="https://github.com/scanapp-org/scanapp-org.github.io/issues/new">Report issue</a> |
+                <a href="https://minhazav.dev">Contact us</a> |
+                <a href="/blog">Blog</a> |
+                <a href="https://blog.minhazav.dev">Blog by Minhaz</a> |
+                <a href="https://github.com/scanapp-org">Open source projects</a> |
+                <a href="https://www.freepik.com/vectors/technology">Vector assets from freepik</a>
+            </div>
+        </div>
+
+        <div class="banners-container">
+            <div class="banners">
+                <div class="banner error">
+                    <div class="banner-icon"><i data-eva="alert-circle-outline" data-eva-fill="#ffffff" data-eva-height="48" data-eva-width="48"></i></div>
+                    <div class="banner-message" id="banner-error-message">{}</div>
+                    <div class="banner-close" onclick="hideBanners()"><i data-eva="close-outline" data-eva-fill="#ffffff"></i></div>
+                </div>
+                <div class="banner success">
+                    <div class="banner-icon"><i data-eva="checkmark-circle-outline" data-eva-fill="#ffffff" data-eva-height="48" data-eva-width="48"></i></div>
+                    <div class="banner-message" id="banner-success-message">{}</div>
+                    <div class="banner-close" onclick="hideBanners()"><i data-eva="close-outline" data-eva-fill="#ffffff"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="iframe-alert" style="display: none;">
+            <div id="iframe-alert-image"><img src="/assets/svg/alert-svgrepo-com.svg"></div>
+            <div id="iframe-alert-subimage"><img src="/assets/svg/scanapp.svg" /></div>
+            <div id="iframe-alert-section">
+                The scanner is powered using <a href="https://scanapp.org">scanapp.org</a>
+            </div>
+            <div id="iframe-alert-actions">
+                <div>
+                    Scan with ad-free experience using <a href="https://scanapp.org">scanapp.org</a>
+                </div>
+                <br>
+                <div>
+                    <button id="iframe-alert-actions-navigate">Go to scanapp.org</button>
+                    or
+                    <button id="iframe-alert-actions-continue">Continue here (5)</button>
+                </div>
+            </div>
+            <!-- ScanAppAntiEmbedBottomAd -->
+            <div style="width: 100%; min-height: 500px; margin-top: 20px; padding: 20px; text-align: center;">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6209792783516879"
+                        crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="autorelaxed"
+                     data-ad-client="ca-pub-6209792783516879"
+                     data-ad-slot="1034299007"></ins>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/eva-icons" onload="eva.replace()"></script>
+        <script src="https://scanapp.org/assets/js/html5-qrcode.min.v2.3.4.js"></script>
+        <script src="https://scanapp.org/assets/js/app.min.v2.3.3.js"></script>
+        <!-- <script src="/assets/js/app.js"></script> -->
+    </div>
+</body>
+</html>

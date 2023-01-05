@@ -158,20 +158,28 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\EMS\Controllers\AttendEventEMSController.cs" />
     <Compile Include="Areas\EMS\Controllers\BaseController.cs" />
     <Compile Include="Areas\EMS\Controllers\CustomerEMSController.cs" />
     <Compile Include="Areas\EMS\Controllers\DefaultController.cs" />
     <Compile Include="Areas\EMS\Controllers\HomeEMSController.cs" />
     <Compile Include="Areas\EMS\Controllers\ModuleController.cs" />
+    <Compile Include="Areas\EMS\Controllers\PersonVotedEMSController.cs" />
     <Compile Include="Areas\EMS\Controllers\TypeCustomerEMSController.cs" />
+    <Compile Include="Areas\EMS\Controllers\VoteNewsController.cs" />
     <Compile Include="Areas\EMS\EMSAreaRegistration.cs" />
     <Compile Include="Areas\EMS\Extension\EmailExtension.cs" />
+    <Compile Include="Controllers\BaseHomeController.cs" />
+    <Compile Include="Controllers\DefaultHomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Encode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AttendEvent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
@@ -198,7 +206,13 @@
     <Compile Include="Models\Module.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonVoted.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TypeCustomer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VoteNew.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,6 +246,7 @@
     <Content Include="Areas\EMS\Views\Default\Login.cshtml" />
     <Content Include="Areas\EMS\Views\CustomerEMS\Add.cshtml" />
     <Content Include="Areas\EMS\Views\TypeCustomerEMS\Index.cshtml" />
+    <Content Include="Areas\EMS\Views\CustomerEMS\Index.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -241,17 +256,24 @@
     </Content>
     <Content Include="Areas\EMS\Views\CustomerEMS\Index.cshtml" />
     <Content Include="Areas\EMS\Views\Module\Create.cshtml" />
+    <Content Include="Areas\EMS\Views\VoteNews\Add.cshtml" />
+    <Content Include="Areas\EMS\Views\VoteNews\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.scannerdetection.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JsBarcode.all.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\qrcode.min.js" />
+    <Content Include="Scripts\Sweetalert2.js" />
     <Content Include="Scripts\Validate.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -267,11 +289,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\DefaultHome\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\EMS\Data\" />
+    <Folder Include="Areas\EMS\Views\AttendEventEMS\" />
     <Folder Include="Areas\EMS\Views\Base\" />
+    <Folder Include="Areas\EMS\Views\PersonVotedEMS\" />
     <Folder Include="Images\" />
+    <Folder Include="Views\BaseHome\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

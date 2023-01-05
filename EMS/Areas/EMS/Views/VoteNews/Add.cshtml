@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Bình Chọn Mới";
+    Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="row">
+    <div class="col-3">Tên Bình Chọn Mới : </div>
+    <div class="col-9"><input type="text" placeholder="Nhập Tên Bình Chọn Mới" class="form-control" id="name" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-3">Tìm Kiếm : </div>
+    <div class="col-9"><input type="text" placeholder="Tìm Tên" class="form-control" id="seach" /></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-3">Chọn Người Bình Chọn : </div>
+    <div class="col-9" id="customer">
+
+
+    </div>
+</div>
+<br />
+<button type="button" class="btn btn-primary" onclick="Add()">Save</button>
+@section scripts{
+    <script>
+        var seach = '';
+        Customer(seach)
+        var array = []
+        $('#seach').keyup(function () {
+            var seach = $('#seach').val().trim()
+            var choose = $('input[name="choose"]')         
+            for (let i = 0; i < choose.length; i++) {
+                var checkAll = choose[i].checked
+                if (!checkAll) {
+                    array.push(choose[i].id)
+                }
+            }
+            Customer(seach, array)
+        })
+        function Customer(seach, array) {
+            console.log(array)
+            $.ajax({
+                url: '/CustomerEMS/List',
+                type: 'get',
+                data: {
+                    seach
+                },
+                success: function (data) {
+                    $('#customer').empty()
+                    if (data.code == 200) {
+                        let opt = `        <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" checked name="CheckAll">
+                                                <label class="form-check-label">
+                                                    All
+                                                </label>
+                                            </div>`
+                        $.each(data.customer, function (k, v) {
+                            opt += `<div class="form-check">
+                                        <input class="form-check-input" name="choose" type="checkbox" checked value="" id="${v.id}">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            ${v.name}
+                                        </label>
+                                    </div>`
+                        })
+                        $('#customer').append(opt)
+                        for (let i = 0; i < array.length; i++) {
+                            $('#' + array[i] + '').attr('checked', false)
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        }
+
+
+        $(document).on('change', 'input[name="CheckAll"]', function () {
+            var checkAll = $('input[name="CheckAll"]').is(':checked');
+            array = []
+            if (checkAll) {
+                $('input[type="checkbox"]').attr('checked', true);
+            } else {
+                $('input[type="checkbox"]').attr('checked', false);
+            }
+        })
+
+        function Add() {
+            var name = $('#name').val().trim()
+            var check = $('input[name="choose"]')
+            if (name.length == 0) {
+                alert("Nhập Tên!!!")
+                return;
+            }
+            $.ajax({
+                url: '/VoteNews/Adds',
+                type: 'post',
+                data: {
+                    name
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        for (let i = 0; i < check.length; i++) {
+                            if (check[i].checked) {
+                                var idCustomer = check[i].id
+                                $.ajax({
+                                    url: '/PersonVotedEMS/Adds',
+                                    type: 'post',
+                                    data: {
+                                        idCustomer
+                                    },
+                                    success: function (data) {
+                                        if (data.code == 200) {
+                                            setTimeout(window.location.href ="/EMS/VoteNews/Add")
+                                        } else {
+
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        }
+    </script>
+}
+
+
+

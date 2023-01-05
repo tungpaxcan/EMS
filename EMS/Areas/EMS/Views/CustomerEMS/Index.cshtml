@@ -17,7 +17,7 @@
             <th scope="col">Số Điện Thoại</th>
             <th scope="col">Email</th>
             <th scope="col">Loại KH</th>
-            <th scope="col">Action</th>
+            <th  scope="col">Action</th>
         </tr>
     </thead>
     <tbody id="tbd">
@@ -51,6 +51,7 @@
                                             <td>${v.phone}</td>
                                             <td>${v.email}</td>
                                             <td>${v.idTypeCustomer}</td>
+                                            <td class="text-danger" style="cursor: pointer;" name="delete">xóa</td>
                                         </tr>`
                             $('#tbd').append(tbd)
                         })
@@ -60,5 +61,25 @@
                 }
             })
         }
+        $(document).on('click', 'td[name="delete"]', function () {
+            var id = $(this).closest('tr').attr('id')
+            var seach = $('#seach').val().trim()
+            if (confirm("Bạn Có Chắc Chắn Xóa !!")) {
+                $.ajax({
+                    url: '/CustomerEMS/Deletes',
+                    type: 'post',
+                    data: {
+                        id
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            List(seach)
+                        } else {
+                            alert("Thất Bại")
+                        }
+                    }
+                })
+            }
+        })
     </script>
     }
