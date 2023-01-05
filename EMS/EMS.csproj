@@ -212,6 +212,9 @@
     <Compile Include="Models\TypeCustomer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Vote.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VoteNew.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
     <Content Include="Areas\EMS\Views\CustomerEMS\Add.cshtml" />
     <Content Include="Areas\EMS\Views\TypeCustomerEMS\Index.cshtml" />
     <Content Include="Areas\EMS\Views\CustomerEMS\Index.cshtml" />
+    <Content Include="Areas\EMS\Views\CustomerEMS\Index.cshtml" />
+    <Content Include="Areas\EMS\Views\Module\Create.cshtml" />
+    <Content Include="Areas\EMS\Views\VoteNews\Add.cshtml" />
+    <Content Include="Areas\EMS\Views\VoteNews\Index.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -254,10 +261,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\EMS\Views\CustomerEMS\Index.cshtml" />
-    <Content Include="Areas\EMS\Views\Module\Create.cshtml" />
-    <Content Include="Areas\EMS\Views\VoteNews\Add.cshtml" />
-    <Content Include="Areas\EMS\Views\VoteNews\Index.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

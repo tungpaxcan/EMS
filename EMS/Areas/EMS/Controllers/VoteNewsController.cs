@@ -83,6 +83,7 @@ namespace EMS.Areas.EMS.Controllers
             {
                 var voteNews = db.VoteNews.SingleOrDefault(x => x.Id == idVotenews);
                 var personVotedCount = db.PersonVoteds.Where(x => x.IdVoteNews == idVotenews);
+                var votedCount = db.Votes.Where(x => x.PersonVoted.IdVoteNews == idVotenews);
                 for (int i = 0; i < personVotedCount.Count(); i++)
                 {
                     var idPersonVoted = personVotedCount.ToList().LastOrDefault().Id;
