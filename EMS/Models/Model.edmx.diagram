@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99201b84966443f5beb5d4d7e3e23f75" Name="Diagram1">
+      <Diagram DiagramId="8914e64af99943ec828964dfa02f4bb8" Name="Diagram1">
         <EntityTypeShape EntityType="EMSModel.Admin" Width="1.5" PointX="5.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EMSModel.AttendEvent" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EMSModel.Customer" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
@@ -15,10 +15,10 @@
         <EntityTypeShape EntityType="EMSModel.VoteNew" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="EMSModel.FK_AttendEvent_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="EMSModel.FK_Customer_TypeCustomer" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EMSModel.EmailAdmin" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="EMSModel.Module" Width="1.5" PointX="8.875" PointY="2.875" />
         <AssociationConnector Association="EMSModel.FK_PersonVoted_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="EMSModel.FK_PersonVoted_VoteNews" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EMSModel.Vote" Width="1.5" PointX="10.5" PointY="3.75" />
+        <AssociationConnector Association="EMSModel.FK_Votes_PersonVoted" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

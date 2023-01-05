@@ -7,6 +7,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Windows;
+using EMS.Areas.EMS.Extension;
 using EMS.Models;
 using OfficeOpenXml;
 
@@ -103,6 +104,7 @@ namespace EMS.Areas.EMS.Controllers
                 customer.Status = true;
                 db.Customers.Add(customer);
                 db.SaveChanges();
+                EmailExtension.SendNotificationEmail(customer);
                 return Json(new { code = 200, msg = "Đăng nhập thất bại" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -174,6 +176,7 @@ namespace EMS.Areas.EMS.Controllers
                                 customer.Status = true;
                                 db.Customers.Add(customer);
                                 db.SaveChanges();
+                                EmailExtension.SendNotificationEmail(customer);
                             }
                             else
                             {

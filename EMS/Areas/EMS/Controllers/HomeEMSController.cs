@@ -12,7 +12,7 @@ namespace EMS.Areas.EMS.Controllers
         // GET: EMS/HomeEMS
         public ActionResult Index()
         {
-            EmailExtension.SendNotificationEmail("hoanghgggg@gmail.com");
+            //EmailExtension.SendNotificationEmail("hoanghgggg@gmail.com");
             return View();
            
         }

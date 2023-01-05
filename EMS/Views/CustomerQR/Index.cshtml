@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>XÁC NHẬN THAM DỰ</title>
+</head>
+<body>
+    <div style=" display: flex; justify-content: center;">
+        <img src="https://www.haphan.com/images/logo.jpg" />
+
+        <button id="Accept" type="button">THAM DỰ SỰ KIỆN</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../../Scripts/QR.js"></script>
+    <script type="text/javascript">
+    var CusID = null
+    if (@Html.Raw(Json.Encode(@ViewBag.CusID)) != null) {
+
+        CusID = @Html.Raw(Json.Encode(@ViewBag.CusID));
+
+    }
+        $('#Accept').click(function () {
+
+            let content = CusID
+
+            var svg
+
+            try {
+                var qrcode = new QRCodeSVG({
+                    content,
+                    
+                    join: true,
+                    width: 500,
+                    height: 500
+                });
+                 svg = qrcode.svg();
+                
+            } catch (error) {
+                alert(error)
+            }
+        
+            $.ajax({
+                url: '/CustomerQR/SendQR',
+                type: 'POST',
+                data: {
+                    ID: CusID,
+                    SVG :svg+""
+                },
+                success: function (data) {
+
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>
